@@ -1,4 +1,4 @@
-![ 1 ](https://github.com/Gl00ria/FontsL00ria/blob/main/screenshots/1.png)
+![ 1 ](https://github.com/Gl00ria/FontsL00ria/tree/main/screenshot)
 ### FontsL00ria:
 
 is a simple-humble [three in one](https://www.nescafe.com/gb/our-coffees/in1/nescafe-3in1/) bash script for:
