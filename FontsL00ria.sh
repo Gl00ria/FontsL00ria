@@ -27,7 +27,7 @@ color_underline_blue="\033[4;34m"
 color_off="\033[0m"
 
 
-# Have a fresh start
+#### Have a fresh start
 clear
 
 
@@ -58,7 +58,7 @@ ${color_red}-${color_off} ${color_gray}Cousine${color_off}                   ${c
 "
 
 
-# Nerd-Fonts list
+#### Nerd-Fonts list
 declare -a fonts_list=(
  "3270"
  "anonymouspro"
@@ -112,22 +112,22 @@ declare -a fonts_list=(
 )
 
 
-# Fonts PATH
+#### Fonts PATH
 version="2.1.0"
-# fonts_dir="$HOME/.local/share/fonts/"
-# @testing "for me"
+#### fonts_dir="$HOME/.local/share/fonts/"
+#### @testing "for me"
 fonts_dir="$HOME/Desktop/fonts/"
 
 
-# @description
-# Create the fonts directory if it does not exist
+#### @description
+#### Create the fonts directory if it does not exist
 if [[ ! -d "$fonts_dir" ]]; then 
   mkdir -p "$fonts_dir"
 fi
 
 
-# @description
-# Downloading all the nerd-fonts from >> (https://github.com/ryanoasis/nerd-fonts)
+#### @description
+#### Downloading all the nerd-fonts from >> (https://github.com/ryanoasis/nerd-fonts)
 down_all_nerd_fonts(){
   for i in "${fonts_list[@]}"; do
     zip_file="${i}.zip"
@@ -137,13 +137,13 @@ down_all_nerd_fonts(){
     unzip "$zip_file" -d "$fonts_dir"
     rm "$zip_file"
   done
-  # Removing Windows Compatible fonts
+  #### Removing Windows Compatible fonts
   find "$fonts_dir" -name '*Windows Compatible*' -delete
 }
 
 
-# @description 
-# Downloading user-selected nerd-fonts from >> (https://github.com/ryanoasis/nerd-fonts)
+#### @description 
+#### Downloading user-selected nerd-fonts from >> (https://github.com/ryanoasis/nerd-fonts)
 down_selected_nerd_fonts(){
   if [[ " ${fonts_list[*]} " =~  ${selected_fonts,,[*]}  ]]; then
   for i in "${selected_fonts[@]}";do
@@ -153,17 +153,17 @@ down_selected_nerd_fonts(){
     wget "$nerd_download_url"
     unzip "$zip_file" -d "$fonts_dir"
     rm "$zip_file"
-  # Removing Windows Compatible fonts
+  #### Removing Windows Compatible fonts
   find "$fonts_dir" -name '*Windows Compatible*' -delete
   done
   fi
 }
 
 
-# @description 
-# Downloading VSCode-icons from >> (https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf)
-# & 
-# Downloading NotoColorEmoji from >> (https://github.com/googlefonts/noto-emoji)
+#### @description 
+#### Downloading VSCode-icons from >> (https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf)
+#### & 
+#### Downloading NotoColorEmoji from >> (https://github.com/googlefonts/noto-emoji)
 down_extra_fonts(){
   echo -ne "Would you like to have ${color_underline_red}VSCode-codicons${color_off} font installed <y/n>? "
   read -r vscode_font
@@ -171,7 +171,7 @@ down_extra_fonts(){
   echo -ne "Would you like to have ${color_underline_red}NotoColorEmoji${color_off} font installed <y/n>? "
   read -r noto_font
 
-  # VSCode-icons
+  #### VSCode-icons
   if [[ $vscode_font == "Y" || $vscode_font == "y" || $vscode_font == "YES" || $vscode_font == "yes" || $vscode_font == "" ]]; then
     codicon_download_url="https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf"
     echo -e "${color_red}Downloading >>>${color_off} ${color_underline_blue}$codicon_download_url\e${color_off}"
@@ -179,7 +179,7 @@ down_extra_fonts(){
     mv codicon.ttf "$fonts_dir"
   fi
 
-  # NotoColorEmoji
+  #### NotoColorEmoji
   if [[ $noto_font == "Y" || $noto_font == "y" || $noto_font == "YES" || $noto_font == "yes" || $noto_font == "" ]]; then
     noto_download_url="https://github.com/googlefonts/noto-emoji/blob/main/fonts/NotoColorEmoji.ttf"
     echo -e "${color_red}Downloading >>>${color_off} ${color_underline_blue}$noto_download_url\e${color_off}"
@@ -194,14 +194,14 @@ read -r all_fonts
 if [[ $all_fonts == "Y" || $all_fonts == "y" || $all_fonts == "YES" || $all_fonts == "yes" || $all_fonts == "" ]]; then
   down_extra_fonts
   down_all_nerd_fonts
-  # Satisfy the system by rebuilding the font cache *_^
+  #### Satisfy the system by rebuilding the font cache *_^
   fc-cache -fv
 else
   echo -ne "Type the font/s you want, seperated by ${color_underline_red}'SPACE'${color_off} for multi select: "  
   read -ra selected_fonts
-  selected_fonts=( "${selected_fonts[@],,}" ) # Convert to lowercase
+  selected_fonts=( "${selected_fonts[@],,}" ) #### Convert to lowercase
   down_extra_fonts
   down_selected_nerd_fonts
-  # Satisfy the system by rebuilding the font cache *_^
+  #### Satisfy the system by rebuilding the font cache *_^
   fc-cache -fv
 fi
