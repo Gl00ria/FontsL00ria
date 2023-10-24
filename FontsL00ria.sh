@@ -119,7 +119,8 @@ declare -a fonts_list=(
 )
 
 ## Fonts PATH
-version="2.1.0"
+# version="2.1.0"
+version="3.0.2" # last checked (24-Oct-2023)
 fonts_dir="$HOME/.local/share/fonts/"
 ## @testing "for me"
 # fonts_dir="$HOME/Desktop/fonts/"
