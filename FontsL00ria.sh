@@ -67,60 +67,61 @@ ${color_red}-${color_off} ${color_gray}Cousine${color_off}                   ${c
 
 ## Nerd-Fonts list
 declare -a fonts_list=(
- "3270"
- "anonymouspro"
- "arimo"
- "aurulentsansmono"
- "bigblueterminal"
- "bitstreamverasansmono"
- "cascadiacode"
- "codenewroman"
- "cousine"
- "daddytimemono"
- "dejavusansmono"
- "droidsansmono"
- "fantasquesansmono"
- "firacode"
- "firamono"
- "go-mono"
- "gohu"
- "hack"
- "hasklig"
- "heavydata"
- "hermit"
- "iA-writer"
- "ibmplexmono"
- "inconsolata"
- "inconsolatago"
- "inconsolatalgc"
- "iosevka"
- "jetbrainsmono"
- "lekton"
- "liberationmono"
- "meslo"
- "monofur"
- "monoid"
- "mononoki"
- "mplus"
- "noto"
- "opendyslexic"
- "overpass"
- "proFont"
- "proggyclean"
- "robotoMono"
- "sharetechmono"
- "sourcecodepro"
- "spacemono"
- "terminus"
- "tinos"
- "ubuntu"
- "ubuntumono"
- "victormono"
+  "3270"
+  "anonymouspro"
+  "arimo"
+  "aurulentsansmono"
+  "bigblueterminal"
+  "bitstreamverasansmono"
+  "cascadiacode"
+  "codenewroman"
+  "cousine"
+  "daddytimemono"
+  "dejavusansmono"
+  "droidsansmono"
+  "fantasquesansmono"
+  "firacode"
+  "firamono"
+  "go-mono"
+  "gohu"
+  "hack"
+  "hasklig"
+  "heavydata"
+  "hermit"
+  "iA-writer"
+  "ibmplexmono"
+  "inconsolata"
+  "inconsolatago"
+  "inconsolatalgc"
+  "iosevka"
+  "jetbrainsmono"
+  "lekton"
+  "liberationmono"
+  "meslo"
+  "monofur"
+  "monoid"
+  "mononoki"
+  "mplus"
+  "noto"
+  "opendyslexic"
+  "overpass"
+  "proFont"
+  "proggyclean"
+  "robotoMono"
+  "sharetechmono"
+  "sourcecodepro"
+  "spacemono"
+  "terminus"
+  "tinos"
+  "ubuntu"
+  "ubuntumono"
+  "victormono"
 )
 
 ## Fonts PATH
 # version="2.1.0"
-version="3.0.2" # last checked (24-Oct-2023)
+# version="3.0.2" # last checked (24-Oct-2023)
+version="3.1.1" # last checked (2024-01-01)
 fonts_dir="$HOME/.local/share/fonts/"
 ## @testing "for me"
 # fonts_dir="$HOME/Desktop/fonts/"
@@ -133,7 +134,7 @@ fi
 
 ## @description
 ## Downloading all the nerd-fonts from >> (https://github.com/ryanoasis/nerd-fonts)
-down_all_nerd_fonts(){
+down_all_nerd_fonts() {
   for i in "${fonts_list[@]}"; do
     zip_file="${i}.zip"
     nerd_download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
@@ -148,18 +149,18 @@ down_all_nerd_fonts(){
 
 ## @description
 ## Downloading user-selected nerd-fonts from >> (https://github.com/ryanoasis/nerd-fonts)
-down_selected_nerd_fonts(){
-  if [[ " ${fonts_list[*]} " =~  ${selected_fonts,,[*]}  ]]; then
-  for i in "${selected_fonts[@]}";do
-    zip_file="${i}.zip"
-    nerd_download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
-    echo -e "${color_red}Downloading>>${color_off} ${color_underline_blue}$nerd_download_url\e${color_off}"
-    wget "$nerd_download_url"
-    unzip "$zip_file" -d "$fonts_dir"
-    rm "$zip_file"
-  ## Removing Windows Compatible fonts
-  find "$fonts_dir" -name '*Windows Compatible*' -delete
-  done
+down_selected_nerd_fonts() {
+  if [[ " ${fonts_list[*]} " =~ ${selected_fonts,,[*]} ]]; then
+    for i in "${selected_fonts[@]}"; do
+      zip_file="${i}.zip"
+      nerd_download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
+      echo -e "${color_red}Downloading>>${color_off} ${color_underline_blue}$nerd_download_url\e${color_off}"
+      wget "$nerd_download_url"
+      unzip "$zip_file" -d "$fonts_dir"
+      rm "$zip_file"
+      ## Removing Windows Compatible fonts
+      find "$fonts_dir" -name '*Windows Compatible*' -delete
+    done
   fi
 }
 
@@ -167,7 +168,7 @@ down_selected_nerd_fonts(){
 ## Downloading VSCode-icons from >> (https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf)
 ## &
 ## Downloading NotoColorEmoji from >> (https://github.com/googlefonts/noto-emoji)
-down_extra_fonts(){
+down_extra_fonts() {
   echo -ne "Would you like to have ${color_underline_red}VSCode-codicons${color_off} font installed <y/n>? "
   read -r vscode_font
 
@@ -201,7 +202,7 @@ if [[ $all_fonts == "Y" || $all_fonts == "y" || $all_fonts == "YES" || $all_font
 else
   echo -ne "Type the font/s you want, seperated by ${color_underline_red}'SPACE'${color_off} for multi select: "
   read -ra selected_fonts
-  selected_fonts=( "${selected_fonts[@],,}" ) ## Convert to lowercase
+  selected_fonts=("${selected_fonts[@],,}") ## Convert to lowercase
   down_extra_fonts
   down_selected_nerd_fonts
   ## Satisfy the system by rebuilding the font cache *_^
